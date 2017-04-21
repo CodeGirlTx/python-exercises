@@ -31,5 +31,12 @@ begin_fill()
 star(300)
 end_fill()
 
+penup()
+goto(250, -75)
+fillcolor('yellow')
+begin_fill()
+full_star(50)
+end_fill()
+
 
 mainloop()
