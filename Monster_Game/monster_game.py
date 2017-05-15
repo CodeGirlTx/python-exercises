@@ -1,4 +1,5 @@
 import pygame
+import time
 
 bg_img = pygame.image.load('images/background.png')
 monster_img = pygame.image.load('images/monster.png')
@@ -31,13 +32,48 @@ class Sprite:
         if self.y - self.radius < 0:
             self.dir_y = -self.dir_y
 
+    def change_dir():
+        if self.dir_x == -self.dir_x:
+            self.dir_x = self.dir_x
+        if self.dir_y == -self.dir_y:
+            self.dir_y = self.dir_y
 
+    def hide(self):
+        self.x = -50
+        self.y = -50
+
+# def countdown():
+#     t = 5
+#     print("started timer")
+#     while t > 0:
+#         t -= 1
+#         print(t)
+#         if t == 0:
+#             monster.change_dir()
+#             print("changedirection")
+def level_counter():
+    level = 1
+    while level <= 4:
+        level += 1
+
+def levels():
+    while level == 1:
+        return main()
+    while level == 2:
+        return main2()
+    # while level == 3:
+    #     return main3()
+
+
+def main2()
 def main():
+    # countdown()
+
     hero = Sprite(240, 230, 32, 10, 10, 'hero')
     monster = Sprite(50, 75, 32, 5, 5, 'monster')
     goblin = Sprite(400, 400, 32, 2, 2, 'goblin')
-    goblin2 = Sprite(50, 150, 32, 1, 1, 'goblin2')
-    goblin3 = Sprite(300, 300, 32, 4, 4, 'goblin3')
+    #goblin2 = Sprite(50, 150, 32, 1, 1, 'goblin2')
+    #goblin3 = Sprite(300, 300, 32, 4, 4, 'goblin3')
 
     width = 512
     height = 480
@@ -52,6 +88,7 @@ def main():
     text = font.render('You WIN!', True, black_color)
     text_2 = font.render('Press enter to play again', True, black_color)
     text_lose = font.render('You lose. :(', True, black_color)
+    text_level = font.render('Level 1', True, black_color)
     text_lose_x = -50
     text_lose_y = -50
     text_x = -50
@@ -66,9 +103,9 @@ def main():
 
     # Game initialization
 
-    change_dir_countdown = 120
-
     sound_main.play()
+
+
     stop_game = False
     while not stop_game:
         for event in pygame.event.get():
@@ -87,21 +124,17 @@ def main():
             hero_rect = pygame.Rect(hero.x, hero.y, 32, 32)
             monster_rect = pygame.Rect(monster.x, monster.y, 32, 32)
             goblin_rect = pygame.Rect(goblin.x, goblin.y, 32, 32)
-            goblin2_rect = pygame.Rect(goblin2.x, goblin2.y, 32, 32)
-            goblin3_rect = pygame.Rect(goblin3.x, goblin3.y, 32, 32)
+            #goblin2_rect = pygame.Rect(goblin2.x, goblin2.y, 32, 32)
+            #goblin3_rect = pygame.Rect(goblin3.x, goblin3.y, 32, 32)
 
             if hero_rect.colliderect(monster_rect):
                 sound_main.stop()
-                monster.x = -50
-                monster.y = -50
+                monster.hide()
                 hero.x = 240
                 hero.y = 300
-                goblin.x = -50
-                goblin.y = -50
-                goblin2.x = -50
-                goblin2.y = -50
-                goblin3.x = -50
-                goblin3.y = -50
+                goblin.hide()
+                #goblin2.hide()
+                #goblin3.hide()
                 sound_win.play()
                 text_x = 185
                 text_y = 200
@@ -110,25 +143,22 @@ def main():
 
             if hero_rect.colliderect(goblin_rect) or hero_rect.colliderect(goblin2_rect) or hero_rect.colliderect(goblin3_rect):
                 sound_main.stop()
-                monster.x = -50
-                monster.y = -50
-                goblin.x = -50
-                goblin.y = -50
-                goblin2.x = -50
-                goblin2.y = -50
-                goblin3.x = -50
-                goblin3.y = -50
-                hero.x = -50
-                hero.y = -50
+                monster.hide()
+                goblin.hide()
+                #goblin2.hide()
+                #goblin3.hide()
+                hero.hide()
                 sound_lose.play()
                 text_lose_x = 185
                 text_lose_y = 200
                 text_2_x = 85
                 text_2_y = 230
 
+
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_RETURN:
                     return 'restart'
+
 
             if event.type == pygame.QUIT:
                 stop_game = True
@@ -145,8 +175,8 @@ def main():
             hero.y += 40
 
         goblin.update()
-        goblin2.update()
-        goblin3.update()
+        #goblin2.update()
+        #goblin3.update()
         monster.update()
 
         # Draw background
@@ -158,8 +188,9 @@ def main():
         screen.blit(text_2, (text_2_x, text_2_y))
         screen.blit(text_lose, (text_lose_x, text_lose_y))
         screen.blit(goblin_img, (goblin.x, goblin.y))
-        screen.blit(goblin_img, (goblin2.x, goblin2.y))
-        screen.blit(goblin_img, (goblin3.x, goblin3.y))
+        #screen.blit(goblin_img, (goblin2.x, goblin2.y))
+        #screen.blit(goblin_img, (goblin3.x, goblin3.y))
+        # screen.blit(text_level, (text_level_x, text_level_y))
 
 
         # Game display
