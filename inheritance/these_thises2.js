@@ -7,13 +7,20 @@ class Person {
     this.friends.push(friend);
   }
   createGreeting(other) {
-    console.log('Yo ' + other.name + '! from ' + this.name + '.');
+    return 'Yo ' + other.name + '! from ' + this.name + '.';
   }
   friends() {
-    return this.friends;
+    console.log(this.friends);
   }
   lazyGreet(other) {
     setTimeout(() => {console.log('Yo ' + other.name + '! from ' + this.name + '.')}, 2000);
+  }
+  createGreetingsForFriends() {
+    //return this.friends.map((other) => { return this.createGreeting(other) });
+    var self = this;
+    return this.friends.map(function (other) {
+      return self.createGreeting(other);
+    });
   }
 }
 
