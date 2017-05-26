@@ -25,44 +25,37 @@ class Card {
   }
 }
 
-// class Deck {
-//   constructor(name){
-//     this.name = name;
-//     this.deck = [];
-//
-//     var label = ['2','3','4','5','6','7','8','9','10','jack','queen','king','ace'];
-//     var suit = ['clubs','spades','diamonds','hearts'];
-//     var deckArray = this.deck;
-//     label.forEach(function(label) {
-//       suit.forEach(function(suit) {
-//         deckArray.push({'label': label, 'suit':suit, 'img':label + '_of_' + suit + '.png'})
-//       });
-//     });
-//
-//   draw() {
-//
-//   }
-//   shuffle() {
-//
-//   }
-//   numCardsLeft() {
-//
-//   }
-//
-//   }
-// }
+
+
+
+class Deck {
+  constructor(){
+    this.deckArray = [];
+  }
+  addDeck(newDeck) {
+    this.deckArray.push(newDeck);
+  }
+  numCardsLeft() {
+    return this.deckArray.length;
+  }
+  makeDeck() {
+    var label = ['2','3','4','5','6','7','8','9','10','jack','queen','king','ace'];
+    var suit = ['clubs','spades','diamonds','hearts'];
+    var self = this;
+    label.forEach(function(label) {
+      suit.forEach(function(suit) {
+        self.deckArray.push({'label': label, 'suit': suit, 'img':label + '_of_' + suit + '.png'})
+      });
+    });
+  }
+}
+
+var myDeck = new Deck();
+myDeck.makeDeck();
+console.log(myDeck);
+
 var myHand = new Hand();
 myHand.addCard(new Card(5, 'diamonds'));
 myHand.addCard(new Card(10, 'hearts'));
 
 myHand.getPoints();
-
-
-// return this.friends.map(function (other) {
-//   return other.name;
-// });
-
-
-// var myHand = new Hand()
-//
-// myHand.addCard(new Card())
