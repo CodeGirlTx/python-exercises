@@ -1,0 +1,38 @@
+.flexparent {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+}
+header {
+  background-color: yellow;
+  flex-direction: column;
+}
+.columns {
+  flex-direction: row;
+  display: flex;
+  flex-wrap: wrap;
+}
+.col1 {
+  background-color: gray;
+  flex: 1;
+}
+.col2 {
+  background-color: green;
+  flex: 1;
+}
+footer {
+  background-color: blue;
+  /*min-height: 100vh;*/
+}
+body {
+  margin: 0;
+  padding: 0;
+}
+
+@media screen and (min-width: 960px) {
+
+}
+
+@media screen and (min-width: 640px) {
+  .columns { flex-wrap: wrap; }
+}
