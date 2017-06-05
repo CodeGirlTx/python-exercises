@@ -2,25 +2,32 @@ var promise = require('bluebird');
 var pgp = require('pg-promise')({
   promiseLib: promise
 });
-var co = require('co');
 var prompt = require('prompt-promise');
+var musicdb = pgp({database: 'music'});
+var query = "INSERT INTO track (id, track_number, duration, album_id) VALUES(default, ${track_number}, ${duration}, ${album_id})";
 
-co(function * genPrompt() {
-  var trackName = prompt('Track name? ');
-  return trackName;
-  var musicdb = pgp({database: 'music'});
-  var query = "INSERT INTO album VALUES(default, $1)";
-  musicdb.result(query, name)
-    .then(function (result) {
-      console.log(result);
-    });
-})
+var tracks = {};
 
-.then(function fulfilled(name) {
-  console.log('artist_name:', name);
-  prompt.end();
-})
-.catch(function rejected(err) {
-  console.log('error:', err.stack);
-  prompt.finish();
-});
+prompt('Track number? ')
+  .then(function (val) {
+    tracks.track_number = val;
+    return prompt('duration? ');
+  })
+  .then(function (val) {
+    tracks.duration = val;
+    return prompt('Album id? ')
+  })
+  .then(function (val) {
+    tracks.album_id = val;
+    console.log(query);
+    return musicdb.result(query, tracks)
+  })
+  .then(function (result) {
+    console.log(result);
+    pgp.end();
+    prompt.done();
+  })
+  .catch(function rejected(err) {
+    console.log('error', err.stack);
+    prompt.finish();
+  });
